@@ -9,9 +9,16 @@ class CostResponse extends AbstractResponse
      * @var ServiceResponse[]
      */
     private $services;
+
+    /**
+     * @var TotalResponse
+     */
+    private $total;
+
     public function __construct($data)
     {
         parent::__construct($data);
+        $this->total = new TotalResponse(array('result' => $this->data['total']));
         foreach ($this->data['services'] as $service) {
             $this->services[] = new ServiceResponse(array('result' => $service));
         }
@@ -30,6 +37,6 @@ class CostResponse extends AbstractResponse
      */
     public function getTotal()
     {
-        return new TotalResponse(array('result' => $this->data['total']));
+        return $this->total;
     }
 }

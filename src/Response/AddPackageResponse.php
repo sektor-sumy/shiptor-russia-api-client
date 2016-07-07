@@ -6,6 +6,17 @@ use ShiptorRussiaApiClient\Client\Response\AddPackage\DepartureResponse;
 class AddPackageResponse extends AbstractResponse
 {
     /**
+     * @var DepartureResponse
+     */
+    private $departure;
+
+    public function __construct($data)
+    {
+        parent::__construct($data);
+        $this->departure = new DepartureResponse(array('result' => $this->data['departure']));
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -90,7 +101,7 @@ class AddPackageResponse extends AbstractResponse
      */
     public function getDeparture()
     {
-        return new DepartureResponse(array('result' => $this->data['departure']));
+        return $this->departure;
     }
 }
 

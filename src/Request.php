@@ -48,8 +48,11 @@ class Request
             'id' => $id
         );
         try {
-            $request = $this->client->post($this->apiUrl, $headers, json_encode($request));
-            $response = $request->send()->json();
+            $request = $this->client->post($this->apiUrl, [
+                'headers' => $headers,
+                'body' => json_encode($request),
+            ]);
+            $response = $request->json();
         } catch (BadResponseException $exception) {
             $response = $exception->getResponse()->json();
         }

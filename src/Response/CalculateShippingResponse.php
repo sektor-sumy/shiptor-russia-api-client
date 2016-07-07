@@ -10,9 +10,16 @@ class CalculateShippingResponse extends AbstractResponse
      * @var MethodListResponse[]
      */
     private $methods;
+
+    /**
+     * @var RequestCalculateShippingResponse
+     */
+    private $request;
+
     public function __construct($data)
     {
         parent::__construct($data);
+        $this->request = new RequestCalculateShippingResponse(array('result' => $this->data['request']));
         foreach ($this->data['methods'] as $method) {
             $this->methods[] = new MethodListResponse(array('result' => $method));
         }
@@ -23,7 +30,7 @@ class CalculateShippingResponse extends AbstractResponse
      */
     public function getRequest()
     {
-        return new RequestCalculateShippingResponse(array('result' => $this->data['request']));
+        return $this->request;
     }
 
     /**

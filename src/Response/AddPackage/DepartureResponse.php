@@ -7,11 +7,28 @@ use ShiptorRussiaApiClient\Client\Response\ShippingMethod\ShippingMethodResponse
 class DepartureResponse extends AbstractResponse
 {
     /**
+     * @var ShippingMethodResponse
+     */
+    private $shippingMethod;
+
+    /**
+     * @var AddressResponse
+     */
+    private $address;
+
+    public function __construct($data)
+    {
+        parent::__construct($data);
+        $this->shippingMethod = new ShippingMethodResponse(array('result' => $this->data['shipping_method']));
+        $this->address = new AddressResponse(array('result' => $this->data['address']));
+    }
+
+    /**
      * @return ShippingMethodResponse
      */
     public function getShippingMethod()
     {
-        return new ShippingMethodResponse(array('result' => $this->data['shipping_method']));
+        return $this->shippingMethod;
     }
 
     /**
@@ -19,7 +36,7 @@ class DepartureResponse extends AbstractResponse
      */
     public function getAddress()
     {
-        return new AddressResponse(array('result' => $this->data['address']));
+        return $this->address;
     }
 
     /**

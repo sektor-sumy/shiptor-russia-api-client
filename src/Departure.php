@@ -7,8 +7,13 @@ class Departure
      * @var array
      */
     protected $data;
+    /**
+     * @var Address
+     */
+    protected $address;
     public function __construct($data) {
         $this->data = $data;
+        $this->address = new Address($this->data['address']);
     }
     /**
      * @return int
@@ -31,6 +36,6 @@ class Departure
      */
     public function getAddress()
     {
-        return new Address($this->data['address']);
+        return $this->getAddress();
     }
 }

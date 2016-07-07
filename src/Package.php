@@ -7,8 +7,11 @@ class Package
      * @var array
      */
     protected $data;
+
+    protected $departure;
     public function __construct($data) {
         $this->data = $data;
+        $this->departure = new Departure($this->data['departure']);
     }
     /**
      * @return int
@@ -43,7 +46,7 @@ class Package
     }
 
     /**
-     * @return int
+     * @return numeric
      */
     public function getCod()
     {
@@ -51,7 +54,7 @@ class Package
     }
 
     /**
-     * @return int
+     * @return numeric
      */
     public function getDeclaredCost()
     {
@@ -71,7 +74,7 @@ class Package
      */
     public function getDeparture()
     {
-        return new Departure($this->data['departure']);
+        return $this->departure;
     }
 
     public function toArray() {

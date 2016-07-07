@@ -10,9 +10,16 @@ class GetPackageResponse extends AbstractResponse
      * @var HistoryResponse[]
      */
     private $history;
+
+    /**
+     * @var DepartureResponse
+     */
+    private $departure;
+
     public function __construct($data)
     {
         parent::__construct($data);
+        $this->departure = new DepartureResponse(array('result' => $this->data['departure']));
         foreach ($this->data['history'] as $history) {
             $this->history[] = new HistoryResponse(array('result' => $history));
         }
@@ -74,7 +81,7 @@ class GetPackageResponse extends AbstractResponse
     }
 
     /**
-     * @return int
+     * @return numeric
      */
     public function getCod()
     {
@@ -82,7 +89,7 @@ class GetPackageResponse extends AbstractResponse
     }
 
     /**
-     * @return int
+     * @return numeric
      */
     public function getDeclaredCost()
     {
@@ -102,7 +109,7 @@ class GetPackageResponse extends AbstractResponse
      */
     public function getDeparture()
     {
-        return new DepartureResponse(array('result' => $this->data['departure']));
+        return $this->departure;
     }
 
     /**

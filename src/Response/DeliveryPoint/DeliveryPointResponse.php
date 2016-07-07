@@ -6,6 +6,17 @@ use ShiptorRussiaApiClient\Client\Response\AbstractResponse;
 class DeliveryPointResponse extends AbstractResponse
 {
     /**
+     * @var GpsLocationResponse
+     */
+    private $gpsLocation;
+
+    public function __construct($data)
+    {
+        parent::__construct($data);
+        $this->gpsLocation = new GpsLocationResponse(array('result' => $this->data['gps_location']));
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -66,7 +77,7 @@ class DeliveryPointResponse extends AbstractResponse
      */
     public function getGpsLocation()
     {
-        return new GpsLocationResponse(array('result' => $this->data['gps_location']));
+        return $this->gpsLocation;
     }
 
     /**
